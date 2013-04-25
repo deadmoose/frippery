@@ -988,11 +988,11 @@ const BottomPanel = new Lang.Class({
         let windowList = new WindowList();
         this.actor.add(windowList.actor, { expand: true });
 
-        this.workspaceSwitcher = new WorkspaceSwitcher();
-        this.actor.add(this.workspaceSwitcher.actor);
-
         this.messageButton = new MessageButton();
         this.actor.add(this.messageButton.actor);
+
+        this.workspaceSwitcher = new WorkspaceSwitcher();
+        this.actor.add(this.workspaceSwitcher.actor);
 
         Main.layoutManager.addChrome(this.actor, { affectsStruts: true,
                                                    trackFullscreen: true });
