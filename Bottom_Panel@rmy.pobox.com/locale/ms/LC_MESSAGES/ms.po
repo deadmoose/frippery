@@ -1,0 +1,43 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+
+msgid "Number of workspaces"
+msgstr "Bilangan ruangkerja"
+
+msgid "Rows in workspace switcher"
+msgstr "Baris pada penukar ruangkerja"
+
+msgid "Close"
+msgstr "Tutup"
+
+msgid "Minimize"
+msgstr "Minimum"
+
+msgid "Maximize"
+msgstr "Maksimum"
+
+msgid "Unmaximize"
+msgstr "Nyah maksimum"
+
+msgid "Always on Visible Workspace"
+msgstr "Ikon pada Ruangkerja ini"
+
+msgid "Move to Workspace Left"
+msgstr "Pindah  ke Ruangkerja Kiri"
+
+msgid "Move to Workspace Right"
+msgstr "Pindah ke Ruangkerja Kanan"
+
+msgid "Move to Workspace Up"
+msgstr "Pindah ke Ruangkerja Atas"
+
+msgid "Move to Workspace Down"
+msgstr "Pindah ke Ruangkerja Bawah"
+
+msgid "Unminimize"
+msgstr "Nyahminimum"

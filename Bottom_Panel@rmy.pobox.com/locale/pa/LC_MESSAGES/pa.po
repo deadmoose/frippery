@@ -1,0 +1,49 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+
+msgid "Number of workspaces"
+msgstr "ਵਰਕਸਪੇਸ ਦੀ ਗਿਣਤੀ"
+
+msgid "Rows in workspace switcher"
+msgstr "ਵਰਕਸਪੇਸ ਸਵਿੱਚਰ ਵਿੱਚ ਕਤਾਰਾਂ"
+
+msgid "Dynamic workspaces"
+msgstr "ਡਾਇਨੇਮਿਕ ਵਰਕਸਪੇਸ"
+
+msgid "Close"
+msgstr "ਬੰਦ"
+
+msgid "Minimize"
+msgstr "ਘੱਟੋ-ਘੱਟੋ(n)"
+
+msgid "Maximize"
+msgstr "ਵੱਧੋ-ਵੱਧ(x)"
+
+msgid "Unmaximize"
+msgstr "ਨਾ-ਵੱਧੋ-ਵੱਧ(x)"
+
+msgid "Always on Top"
+msgstr "ਹਮੇਸ਼ਾ ਸਭ ਤੋਂ ਉੱਤੇ(T)"
+
+msgid "Always on Visible Workspace"
+msgstr "ਸਿਰਫ਼ ਇਸ ਵਰਕਸਪੇਸ ਵਿੱਚ ਰੱਖੋ(A)"
+
+msgid "Move to Workspace Left"
+msgstr "ਵਰਕਸਪੇਸ ਵਿੱਚ ਖੱਬੇ ਭੇਜੋ(L)"
+
+msgid "Move to Workspace Right"
+msgstr "ਵਰਕਸਪੇਸ ਵਿੱਚ ਸੱਜੇ ਭੇਜੋ(i)"
+
+msgid "Move to Workspace Up"
+msgstr "ਵਰਕਸਪੇਸ ਵਿੱਚ ਉੱਤੇ ਲੈ ਜਾਓ(U)"
+
+msgid "Move to Workspace Down"
+msgstr "ਵਰਕਸਪੇਸ ਵਿੱਚ ਹੇਠਾਂ ਲੈ ਜਾਓ(D)"
+
+msgid "Unminimize"
+msgstr "ਅਣ-ਮਿੰਨੀਮਾਈਜ਼(n)"

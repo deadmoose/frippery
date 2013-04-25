@@ -1,0 +1,46 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+
+msgid "Number of workspaces"
+msgstr "Laneko areen kopurua"
+
+msgid "Rows in workspace switcher"
+msgstr "Laneko arearen aldatzailearen errenkadak"
+
+msgid "Close"
+msgstr "Itxi"
+
+msgid "Minimize"
+msgstr "Ikonotu"
+
+msgid "Maximize"
+msgstr "Maximizatu"
+
+msgid "Unmaximize"
+msgstr "Desmaximizatu"
+
+msgid "Always on Top"
+msgstr "Beti goian"
+
+msgid "Always on Visible Workspace"
+msgstr "Laneko area ikusgaian beti"
+
+msgid "Move to Workspace Left"
+msgstr "Eraman ezkerreko laneko areara"
+
+msgid "Move to Workspace Right"
+msgstr "Eraman eskuineko laneko areara"
+
+msgid "Move to Workspace Up"
+msgstr "Eraman gaineko laneko areara"
+
+msgid "Move to Workspace Down"
+msgstr "Eraman azpiko laneko areara"
+
+msgid "Unminimize"
+msgstr "Leheneratu"

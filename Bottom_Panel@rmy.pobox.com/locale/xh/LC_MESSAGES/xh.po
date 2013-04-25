@@ -1,0 +1,40 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+
+msgid "Number of workspaces"
+msgstr "Inani lendawo yokusebenzela"
+
+msgid "Rows in workspace switcher"
+msgstr "Izakhelo zemikrozo esuka ekhohlo kumvuli-mvali wezithuba zokusebenza"
+
+msgid "Minimize"
+msgstr "Nciphisa"
+
+msgid "Maximize"
+msgstr "Yandisa"
+
+msgid "Unmaximize"
+msgstr "Sukwandisa"
+
+msgid "Always on Visible Workspace"
+msgstr "Rhoqo kwiNdawo yoSebenzela eBonakalayo"
+
+msgid "Move to Workspace Left"
+msgstr "Shenxisela kwiNdawo yoSebenzela eKhohlo"
+
+msgid "Move to Workspace Right"
+msgstr "Shenxisela kwiNdawo yokuSebenzela eKunene"
+
+msgid "Move to Workspace Up"
+msgstr "Shenxisela kwiNdawo yokuSebenzela ePhezulu"
+
+msgid "Move to Workspace Down"
+msgstr "Shenxisela kwiNdawo yokuSebenzela ePhantsi"
+
+msgid "Unminimize"
+msgstr "Yeka ukunciphisa"

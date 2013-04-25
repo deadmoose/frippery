@@ -1,0 +1,43 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+
+msgid "Number of workspaces"
+msgstr "ལཱ་གི་ས་སྒོའི་གྲངས།"
+
+msgid "Rows in workspace switcher"
+msgstr "ལཱ་གི་ས་སྒོ་ སོར་བསྒྱུར་འབད་མི་ནང་གི་ གྲལ་ཐིག་ཚུ།"
+
+msgid "Minimize"
+msgstr "ཆུང་ཀུ་བཟོ།(n)"
+
+msgid "Maximize"
+msgstr "སྦོམ་བཟོ།(x)"
+
+msgid "Unmaximize"
+msgstr "སྦོམ་བཟོ་ནི་བཤོལ།(x)"
+
+msgid "Always on Top"
+msgstr "ཨ་རྟག་རང་མགོ་ལུ་(T)"
+
+msgid "Always on Visible Workspace"
+msgstr "ཨ་རྟག་རང་ མཐོང་ཚུགས་པའི་ ལཱ་གི་ས་སྒོ་གུ།(A)"
+
+msgid "Move to Workspace Left"
+msgstr "གཡོན་གྱི་ལཱ་གི་ས་སྒོ་ལུ་སྤོ།(L)"
+
+msgid "Move to Workspace Right"
+msgstr "གཡས་ཀྱི་ལཱ་གི་ས་སྒོ་ལུ་སྤོ།(i)"
+
+msgid "Move to Workspace Up"
+msgstr "ལྟག་གི་ལཱ་གི་ས་སྒོ་ལུ་སྤོ།(U)"
+
+msgid "Move to Workspace Down"
+msgstr "འོག་གི་ལཱ་གི་ས་སྒོ་ལུ་སྤོ།(D)"
+
+msgid "Unminimize"
+msgstr "ཆུང་བཟོ་བཤོལ།(n)"

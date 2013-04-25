@@ -1,0 +1,43 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+
+msgid "Number of workspaces"
+msgstr "Líon na spásanna oibre"
+
+msgid "Rows in workspace switcher"
+msgstr "Rónna sa mhalartóir spásanna oibre"
+
+msgid "Minimize"
+msgstr "Íoslaghdaigh"
+
+msgid "Maximize"
+msgstr "Uasmhéadaigh"
+
+msgid "Unmaximize"
+msgstr "Díhuasmhéadaigh"
+
+msgid "Always on Top"
+msgstr "Ar Barr i gCónaí"
+
+msgid "Always on Visible Workspace"
+msgstr "Ar Spás Oibre Infheicthe i gCónaí"
+
+msgid "Move to Workspace Left"
+msgstr "Bog go Spás Oibre ar Chlé"
+
+msgid "Move to Workspace Right"
+msgstr "Bog go Spás Oibre ar Dheis"
+
+msgid "Move to Workspace Up"
+msgstr "Bog go Spás Oibre Os Cionn"
+
+msgid "Move to Workspace Down"
+msgstr "Bog go Spás Oibre Faoi Bhun"
+
+msgid "Unminimize"
+msgstr "Dí-íoslaghdaigh"

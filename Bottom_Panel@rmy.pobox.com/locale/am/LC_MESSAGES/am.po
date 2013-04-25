@@ -1,0 +1,43 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+
+msgid "Number of workspaces"
+msgstr "የመሥሪያ ቦታዎች ብዛት"
+
+msgid "Rows in workspace switcher"
+msgstr "የመሥሪያ ቦታ መቀያየሪያ"
+
+msgid "Close"
+msgstr "ዝጋ"
+
+msgid "Minimize"
+msgstr "መሳንስ (N)"
+
+msgid "Maximize"
+msgstr "መተልቅ (X)"
+
+msgid "Unmaximize"
+msgstr "መታስተልቅ (X)"
+
+msgid "Always on Visible Workspace"
+msgstr "በዚህ መሥሪያ ቦታ ላይ ብቻ (U)"
+
+msgid "Move to Workspace Left"
+msgstr "መስኮትን ወደ መሥሪያ ቦታ 9 አንቀሳቅስ"
+
+msgid "Move to Workspace Right"
+msgstr "መስኮትን ወደ መሥሪያ ቦታ 1 አንቀሳቅስ"
+
+msgid "Move to Workspace Up"
+msgstr "መስኮትን ወደ መሥሪያ ቦታ 1 አንቀሳቅስ"
+
+msgid "Move to Workspace Down"
+msgstr "መስኮትን ወደ መሥሪያ ቦታ 9 አንቀሳቅስ"
+
+msgid "Unminimize"
+msgstr "መታሳንስ (M)"

@@ -1,0 +1,46 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+
+msgid "Number of workspaces"
+msgstr "Tal på arbeidsflater"
+
+msgid "Rows in workspace switcher"
+msgstr "Rader i arbeidsområdeskiftar"
+
+msgid "Close"
+msgstr "Lukk"
+
+msgid "Minimize"
+msgstr "Minimer"
+
+msgid "Maximize"
+msgstr "Maksimer"
+
+msgid "Unmaximize"
+msgstr "Gjenopprett"
+
+msgid "Always on Top"
+msgstr "Alltid øvst"
+
+msgid "Always on Visible Workspace"
+msgstr "Alltid på synleg arbeidsflate"
+
+msgid "Move to Workspace Left"
+msgstr "Flytt ei arbeidsflate til venstre"
+
+msgid "Move to Workspace Right"
+msgstr "Flytt ei arbeidsflate til høgre"
+
+msgid "Move to Workspace Up"
+msgstr "Flytt ei arbeidsflate opp"
+
+msgid "Move to Workspace Down"
+msgstr "Flytt ei arbeidsflate ned"
+
+msgid "Unminimize"
+msgstr "Gjenopprett"

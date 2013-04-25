@@ -1,0 +1,49 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+
+msgid "Number of workspaces"
+msgstr "Número de áreas de trabalho"
+
+msgid "Rows in workspace switcher"
+msgstr "Linhas no alternador de áreas"
+
+msgid "Dynamic workspaces"
+msgstr "Espaços de trabalho dinâmicos"
+
+msgid "Close"
+msgstr "Fechar"
+
+msgid "Minimize"
+msgstr "Minimizar"
+
+msgid "Maximize"
+msgstr "Maximizar"
+
+msgid "Unmaximize"
+msgstr "Restaurar"
+
+msgid "Always on Top"
+msgstr "Sempre no Topo"
+
+msgid "Always on Visible Workspace"
+msgstr "Sempre na Área de Trabalho Visível"
+
+msgid "Move to Workspace Left"
+msgstr "Mover para a Área de Trabalho à Esquerda"
+
+msgid "Move to Workspace Right"
+msgstr "Mover para a Área de Trabalho à Direita"
+
+msgid "Move to Workspace Up"
+msgstr "Mover para a Área de Trabalho Acima"
+
+msgid "Move to Workspace Down"
+msgstr "Mover para a Área de Trabalho Abaixo"
+
+msgid "Unminimize"
+msgstr "Restaurar"

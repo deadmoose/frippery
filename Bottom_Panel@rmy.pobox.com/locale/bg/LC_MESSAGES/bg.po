@@ -1,0 +1,43 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+
+msgid "Number of workspaces"
+msgstr "Брой работни плотове"
+
+msgid "Rows in workspace switcher"
+msgstr "Редове на превключвателя на работни плотове"
+
+msgid "Minimize"
+msgstr "Минимизиране"
+
+msgid "Maximize"
+msgstr "Максимизиране"
+
+msgid "Unmaximize"
+msgstr "Демаксимизиране"
+
+msgid "Always on Top"
+msgstr "Винаги отгоре"
+
+msgid "Always on Visible Workspace"
+msgstr "Винаги на видимия работен плот"
+
+msgid "Move to Workspace Left"
+msgstr "Преместване на левия работен плот"
+
+msgid "Move to Workspace Right"
+msgstr "Преместване на десния работен плот"
+
+msgid "Move to Workspace Up"
+msgstr "Преместване на горния работен плот"
+
+msgid "Move to Workspace Down"
+msgstr "Преместване в долния работен плот"
+
+msgid "Unminimize"
+msgstr "Деминимизиране"

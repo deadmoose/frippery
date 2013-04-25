@@ -1,0 +1,46 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+
+msgid "Number of workspaces"
+msgstr "تعداد فضاهای کاری"
+
+msgid "Rows in workspace switcher"
+msgstr "ردیف‌های تعویش‌کننده‌ی فضای کاری"
+
+msgid "Close"
+msgstr "بستن"
+
+msgid "Minimize"
+msgstr "حداقل کردن"
+
+msgid "Maximize"
+msgstr "حداکثر کردن"
+
+msgid "Unmaximize"
+msgstr "ناحداکثر کردن"
+
+msgid "Always on Top"
+msgstr "همیشه در بالا"
+
+msgid "Always on Visible Workspace"
+msgstr "همیشه در فضای کاری قابل مشاهده"
+
+msgid "Move to Workspace Left"
+msgstr "نقل‌مکان به فضای کاری چپ"
+
+msgid "Move to Workspace Right"
+msgstr "نقل‌مکان به فضای کاری راست"
+
+msgid "Move to Workspace Up"
+msgstr "نقل‌مکان به فضای کاری بالا "
+
+msgid "Move to Workspace Down"
+msgstr "نقل‌مکان به فضای کاری پایین"
+
+msgid "Unminimize"
+msgstr "ناحداقل کردن"

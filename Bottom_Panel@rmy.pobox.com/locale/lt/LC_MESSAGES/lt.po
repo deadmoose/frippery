@@ -1,0 +1,46 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+
+msgid "Number of workspaces"
+msgstr "Darbalaukų kiekis"
+
+msgid "Rows in workspace switcher"
+msgstr "Eilučių skaičius darbalaukių keitiklyje"
+
+msgid "Dynamic workspaces"
+msgstr "Dinaminiai darbalaukiai"
+
+msgid "Minimize"
+msgstr "Sumažinti"
+
+msgid "Maximize"
+msgstr "Išdidinti"
+
+msgid "Unmaximize"
+msgstr "Grąžinti iš išdidinimo"
+
+msgid "Always on Top"
+msgstr "Visada viršuje"
+
+msgid "Always on Visible Workspace"
+msgstr "Visada matomame darbalaukyje"
+
+msgid "Move to Workspace Left"
+msgstr "Perkelti langą į kairįjį darbalaukį"
+
+msgid "Move to Workspace Right"
+msgstr "Perkelti langą į dešinįjį darbalaukį"
+
+msgid "Move to Workspace Up"
+msgstr "Perkelti langą į aukštesnįjį darbalaukį"
+
+msgid "Move to Workspace Down"
+msgstr "Perkelti langą į žemesnįjį darbalaukį"
+
+msgid "Unminimize"
+msgstr "Grąžinti iš sumažinimo"

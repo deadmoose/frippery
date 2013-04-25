@@ -1,0 +1,46 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+
+msgid "Number of workspaces"
+msgstr "పనిస్థలముల సంఖ్య"
+
+msgid "Rows in workspace switcher"
+msgstr "కార్యక్షేత్రం మార్చదానిలో గల అడ్డువరుసలు"
+
+msgid "Close"
+msgstr "ముగించు"
+
+msgid "Minimize"
+msgstr "కనిష్టీకరించు (n)"
+
+msgid "Maximize"
+msgstr "గరిష్టీకరించు (x)"
+
+msgid "Unmaximize"
+msgstr "గరిష్టీకరించవద్దు (x)"
+
+msgid "Always on Top"
+msgstr "ఎల్లప్పుడూ పైనే"
+
+msgid "Always on Visible Workspace"
+msgstr "ఎల్లప్పుడూ గోచరించు కార్యక్షేత్రముపైనే(A)"
+
+msgid "Move to Workspace Left"
+msgstr "కార్యక్షేత్రం నుండి ఎడమవైపుకు కదులు (L)"
+
+msgid "Move to Workspace Right"
+msgstr "కార్యక్షేత్రం నుండి కుడివైపుకు కదులు (R)"
+
+msgid "Move to Workspace Up"
+msgstr "కార్యక్షేత్రం నుండి పైకి కదులు (U)"
+
+msgid "Move to Workspace Down"
+msgstr "కార్యక్షేత్రం నుండి క్రిందికి కదులు (D)"
+
+msgid "Unminimize"
+msgstr "కనిష్టీకరించకు (n)"

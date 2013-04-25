@@ -1,0 +1,43 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+
+msgid "Number of workspaces"
+msgstr "Nifer y gweithfannau"
+
+msgid "Rows in workspace switcher"
+msgstr "Rhesi yn y cyfnewidydd gweithfannau"
+
+msgid "Minimize"
+msgstr "Lleihau"
+
+msgid "Maximize"
+msgstr "Ehangu"
+
+msgid "Unmaximize"
+msgstr "Dadehangu"
+
+msgid "Always on Top"
+msgstr "Ar y Blaen o Hyd"
+
+msgid "Always on Visible Workspace"
+msgstr "Pob tro ar y Weithfan Weladwy"
+
+msgid "Move to Workspace Left"
+msgstr "Symud at y Weithfan i'r Chwith"
+
+msgid "Move to Workspace Right"
+msgstr "Symud at y Weithfan i'r Dde"
+
+msgid "Move to Workspace Up"
+msgstr "Symud at y Weithfan i Fyny"
+
+msgid "Move to Workspace Down"
+msgstr "Symud at y Weithfan i Lawr"
+
+msgid "Unminimize"
+msgstr "Dadleihau"

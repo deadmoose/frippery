@@ -1,0 +1,46 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+
+msgid "Number of workspaces"
+msgstr "Çalışma alanlarının sayısı"
+
+msgid "Rows in workspace switcher"
+msgstr "Çalışma alanı değiştiricisindeki satır sayısı"
+
+msgid "Close"
+msgstr "Kapatmak"
+
+msgid "Minimize"
+msgstr "Küçült"
+
+msgid "Maximize"
+msgstr "Büyült"
+
+msgid "Unmaximize"
+msgstr "Büyültmeyi Geri Al"
+
+msgid "Always on Top"
+msgstr "Her Zaman Üstte"
+
+msgid "Always on Visible Workspace"
+msgstr "Her Zaman Görünen Çalışma Alanında"
+
+msgid "Move to Workspace Left"
+msgstr "Soldaki Çalışma Alanına Taşı"
+
+msgid "Move to Workspace Right"
+msgstr "Sağdaki Çalışma Alanına Taşı"
+
+msgid "Move to Workspace Up"
+msgstr "Yukarıdaki Çalışma Alanına Taşı"
+
+msgid "Move to Workspace Down"
+msgstr "Aşağıdaki Çalışma Alanına Taşı"
+
+msgid "Unminimize"
+msgstr "Küçültmeyi geri al"

@@ -1,0 +1,49 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+
+msgid "Number of workspaces"
+msgstr "工作區數目"
+
+msgid "Rows in workspace switcher"
+msgstr "工作區切換程式的列數"
+
+msgid "Dynamic workspaces"
+msgstr "動態工作區"
+
+msgid "Close"
+msgstr "關閉"
+
+msgid "Minimize"
+msgstr "最小化(N)"
+
+msgid "Maximize"
+msgstr "最大化(X)"
+
+msgid "Unmaximize"
+msgstr "取消最大化(X)"
+
+msgid "Always on Top"
+msgstr "總是在最上層(T)"
+
+msgid "Always on Visible Workspace"
+msgstr "在所有工作區顯示(A)"
+
+msgid "Move to Workspace Left"
+msgstr "移至左方的工作區(L)"
+
+msgid "Move to Workspace Right"
+msgstr "移至右方的工作區(I)"
+
+msgid "Move to Workspace Up"
+msgstr "移至上方的工作區(U)"
+
+msgid "Move to Workspace Down"
+msgstr "移至下方的工作區(D)"
+
+msgid "Unminimize"
+msgstr "取消最小化(N)"

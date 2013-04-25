@@ -1,0 +1,40 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+
+msgid "Number of workspaces"
+msgstr "Ажлын талбарын тоо"
+
+msgid "Rows in workspace switcher"
+msgstr "Ажлыг горим сэлгэгчийн мөрүүд"
+
+msgid "Minimize"
+msgstr "Жижигсгэх"
+
+msgid "Maximize"
+msgstr "Томсгох"
+
+msgid "Unmaximize"
+msgstr "Сэргээх"
+
+msgid "Always on Visible Workspace"
+msgstr "Зөвхөн энэ ажлын талбар дээр "
+
+msgid "Move to Workspace Left"
+msgstr "Ажлын талбарын зүүн тийш зөө"
+
+msgid "Move to Workspace Right"
+msgstr "Ажлын талбарын баруун тийш зөө"
+
+msgid "Move to Workspace Up"
+msgstr "Ажлын талбарын дээш зөө"
+
+msgid "Move to Workspace Down"
+msgstr "Ажлын талбарын доош зөө"
+
+msgid "Unminimize"
+msgstr "Буцааж тавих"

@@ -1,0 +1,46 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+
+msgid "Number of workspaces"
+msgstr "പണിയറകളുടെ എണ്ണം"
+
+msgid "Rows in workspace switcher"
+msgstr "പണിയറ സ്വിച്ചറിലുളള വരികള്‍"
+
+msgid "Close"
+msgstr "അടയ്ക്കുക"
+
+msgid "Minimize"
+msgstr "ചെറുതാക്കുക (n)"
+
+msgid "Maximize"
+msgstr "വലുതാക്കുക (x)"
+
+msgid "Unmaximize"
+msgstr "വലുതാക്കിയതൊഴിവാക്കുക (x)"
+
+msgid "Always on Top"
+msgstr "എപ്പോഴും മുകളില്‍ (T)"
+
+msgid "Always on Visible Workspace"
+msgstr "എപ്പോഴും ദൃശ്യമായ പണിയറയില്‍ (A)"
+
+msgid "Move to Workspace Left"
+msgstr "ഇടത്തുളള പണിയറയിലേക്ക് നീങ്ങുക (L)"
+
+msgid "Move to Workspace Right"
+msgstr "വലത്തുളള പണിയറയിലേക്ക് നീങ്ങുക (R)"
+
+msgid "Move to Workspace Up"
+msgstr "മുകളിലുളള പണിയറയിലേക്ക് നീങ്ങുക (U)"
+
+msgid "Move to Workspace Down"
+msgstr "താഴെയുളള പണിയറയിലേക്ക് നീങ്ങുക (D)"
+
+msgid "Unminimize"
+msgstr "ചെറുതാക്കിയത് ഒഴിവാക്കുക"

@@ -1,0 +1,46 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+
+msgid "Number of workspaces"
+msgstr "Số vùng làm việc"
+
+msgid "Rows in workspace switcher"
+msgstr "Các hàng trong Bộ chuyển vùng làm việc"
+
+msgid "Close"
+msgstr "Đóng"
+
+msgid "Minimize"
+msgstr "Thu nhỏ"
+
+msgid "Maximize"
+msgstr "Phóng to"
+
+msgid "Unmaximize"
+msgstr "Bỏ phóng to"
+
+msgid "Always on Top"
+msgstr "Luôn ở trên"
+
+msgid "Always on Visible Workspace"
+msgstr "Chỉ trong vùng làm việc có thể thấy"
+
+msgid "Move to Workspace Left"
+msgstr "Chuyển sang vùng làm việc bên trái"
+
+msgid "Move to Workspace Right"
+msgstr "Chuyển sang vùng làm việc bên phải"
+
+msgid "Move to Workspace Up"
+msgstr "Chuyển sang vùng làm việc bên trên"
+
+msgid "Move to Workspace Down"
+msgstr "Chuyển sang vùng làm việc bên dưới"
+
+msgid "Unminimize"
+msgstr "Bỏ thu nhỏ"
