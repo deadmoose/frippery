@@ -15,6 +15,9 @@ const St = imports.gi.St;
 const Main = imports.ui.main;
 const MessageTray = imports.ui.messageTray;
 const ModalDialog = imports.ui.modalDialog;
+const NotificationDaemon = imports.ui.notificationDaemon;
+const Panel = imports.ui.panel;
+const PanelMenu = imports.ui.panelMenu;
 const PopupMenu = imports.ui.popupMenu;
 const Tweener = imports.ui.tweener;
 const WindowManager = imports.ui.windowManager;
@@ -944,38 +947,6 @@ const WorkspaceSwitcher = new Lang.Class({
     }
 });
 
-const MessageButton = new Lang.Class({
-    Name: 'MessageButton',
-
-    _init: function() {
-        this.actor = new St.Button({ name: 'messageButton',
-                                     style_class: 'message-button',
-                                     reactive: true });
-
-        let text = '!';
-        if ( Main.messageTray._summary.get_children().length == 0 ) {
-            text = ' ';
-        }
-        this.messageLabel = new St.Label({ text: text });
-        this.actor.set_child(this.messageLabel);
-        this.actor.connect('clicked', Lang.bind(this, function() {
-            Main.messageTray.toggleState();
-        }));
-
-        this.actorAddedId = Main.messageTray._summary.connect('actor-added',
-            Lang.bind(this, function() {
-                this.messageLabel.set_text('!');
-        }));
-
-        this.actorRemovedId = Main.messageTray._summary.connect('actor-removed',
-            Lang.bind(this, function() {
-                if ( Main.messageTray._summary.get_children().length == 0 ) {
-                    this.messageLabel.set_text(' ');
-                }
-        }));
-    }
-});
-
 const BottomPanel = new Lang.Class({
     Name: 'BottomPanel',
 
@@ -988,8 +959,7 @@ const BottomPanel = new Lang.Class({
         let windowList = new WindowList();
         this.actor.add(windowList.actor, { expand: true });
 
-        this.messageButton = new MessageButton();
-        this.actor.add(this.messageButton.actor);
+        this.actor.add(notificationTray);
 
         this.workspaceSwitcher = new WorkspaceSwitcher();
         this.actor.add(this.workspaceSwitcher.actor);
@@ -1125,14 +1095,19 @@ const FripperySwitcherPopup = new Lang.Class({
     }
 });
 
-let myShowTray, origShowTray;
-let myTrayDwellTimeout, origTrayDwellTimeout;
 let myUpdateShowingNotification, origUpdateShowingNotification;
 let myOnNotificationExpanded, origOnNotificationExpanded;
 let myShowWorkspaceSwitcher, origShowWorkspaceSwitcher;
 let pre_363 = true;
+let trayAddedId = 0;
+let trayRemovedId = 0;
+let fullScreenChangedId = 0;
+let getSource = null;
+let icons = [];
 
 function init(extensionMeta) {
+    getSource = Lang.bind(Main.notificationDaemon, NotificationDaemon.NotificationDaemon.prototype._getSource);
+
     let localePath = extensionMeta.path + '/locale';
     imports.gettext.bindtextdomain('frippery-bottom-panel', localePath);
 
@@ -1148,37 +1123,6 @@ function init(extensionMeta) {
             }
         }
     }
-
-    origShowTray = MessageTray.MessageTray.prototype._showTray;
-    myShowTray = function() {
-        let modal = !this._overviewVisible;
-
-        if (!this._grabHelper.grab({ actor: this.actor,
-                                     modal: modal,
-                                     onUngrab: Lang.bind(this, this._escapeTray) })) {
-            this._traySummoned = false;
-            return false;
-        }
-
-        let h = bottomPanel.actor.get_theme_node().get_height();
-        this._tween(this.actor, '_trayState', MessageTray.State.SHOWN,
-                    { y: - this.actor.height - h,
-                      time: MessageTray.ANIMATION_TIME,
-                      transition: 'easeOutQuad'
-                    });
-
-        if (!this._overviewVisible)
-            this._lightbox.show();
-
-        return true;
-    };
-
-    origTrayDwellTimeout = MessageTray.MessageTray.prototype._trayDwellTimeout;
-    myTrayDwellTimeout = function() {
-        this._trayDwellTimeoutId = 0;
-
-        return false;
-    };
 
     origUpdateShowingNotification =
         MessageTray.MessageTray.prototype._updateShowingNotification;
@@ -1291,11 +1235,98 @@ function init(extensionMeta) {
     };
 }
 
+function moveToTop() {
+    Main.notificationDaemon._trayManager.disconnect(Main.notificationDaemon._trayIconAddedId);
+    Main.notificationDaemon._trayManager.disconnect(Main.notificationDaemon._trayIconRemovedId);
+    trayAddedId = Main.notificationDaemon._trayManager.connect('tray-icon-added', onTrayIconAdded);
+    trayRemovedId = Main.notificationDaemon._trayManager.connect('tray-icon-removed', onTrayIconRemoved);
+
+    Main.notificationDaemon._getSource = createSource;
+
+    let toDestroy = [];
+    for (let i = 0; i < Main.notificationDaemon._sources.length; i++) {
+        let source = Main.notificationDaemon._sources[i];
+        if (!source.trayIcon)
+            continue;
+        let parent = source.trayIcon.get_parent();
+        parent.remove_actor(source.trayIcon);
+        onTrayIconAdded(this, source.trayIcon, source.initialTitle);
+        toDestroy.push(source);
+    }
+
+     for (let i = 0; i < toDestroy.length; i++) {
+        toDestroy[i].destroy();
+     }
+}
+
+function moveToTray() {
+    if (trayAddedId != 0) {
+        Main.notificationDaemon._trayManager.disconnect(trayAddedId);
+        trayAddedId = 0;
+    }
+
+    if (trayRemovedId != 0) {
+        Main.notificationDaemon._trayManager.disconnect(trayRemovedId);
+        trayRemovedId = 0;
+    }
+
+    Main.notificationDaemon._trayIconAddedId = Main.notificationDaemon._trayManager.connect('tray-icon-added',
+                                                Lang.bind(Main.notificationDaemon, Main.notificationDaemon._onTrayIconAdded));
+    Main.notificationDaemon._trayIconRemovedId = Main.notificationDaemon._trayManager.connect('tray-icon-removed',
+                                                Lang.bind(Main.notificationDaemon, Main.notificationDaemon._onTrayIconRemoved));
+
+    Main.notificationDaemon._getSource = getSource;
+
+    for (let i = 0; i < icons.length; i++) {
+        let icon = icons[i];
+        let parent = icon.get_parent();
+        parent.remove_actor(icon);
+        parent.destroy();
+        Main.notificationDaemon._onTrayIconAdded(Main.notificationDaemon, icon);
+    }
+
+    icons = [];
+}
+
+function createSource (title, pid, ndata, sender, trayIcon) {
+  if (trayIcon) {
+    onTrayIconAdded(this, trayIcon, title);
+    return null;
+  }
+
+  return getSource(title, pid, ndata, sender, trayIcon);
+};
+
+function onTrayIconAdded(o, icon, role) {
+    let wmClass = icon.wm_class ? icon.wm_class.toLowerCase() : '';
+    if (NotificationDaemon.STANDARD_TRAY_ICON_IMPLEMENTATIONS[wmClass] !== undefined)
+            return;
+
+    let buttonBox = new PanelMenu.ButtonBox();
+    let box = buttonBox.actor;
+    let parent = box.get_parent();
+
+    icon.height = Panel.PANEL_ICON_SIZE;
+    box.add_actor(icon);
+
+    if (parent)
+        parent.remove_actor(box);
+
+    icons.push(icon);
+    notificationTray.insert_child_at_index(box, 0);
+}
+
+function onTrayIconRemoved(o, icon) {
+    let parent = icon.get_parent();
+    parent.destroy();
+    icon.destroy();
+    icons.splice(icons.indexOf(icon), 1);
+}
+
 let bottomPanel = null;
+let notificationTray = new St.BoxLayout({ style_class: 'notification-tray' });
 
 function enable() {
-    MessageTray.MessageTray.prototype._showTray = myShowTray;
-    MessageTray.MessageTray.prototype._trayDwellTimeout = myTrayDwellTimeout;
     MessageTray.MessageTray.prototype._updateShowingNotification =
         myUpdateShowingNotification;
     MessageTray.MessageTray.prototype._onNotificationExpanded =
@@ -1312,13 +1343,30 @@ function enable() {
 
     bottomPanel = new BottomPanel();
     bottomPanel.relayout();
+
+    moveToTop();
+
+    // TrayIcons do not survive leaving the stage (they end up as white squares), so work around this
+    // by temporarily move them back to the message tray while we are in fullscreen.
+    fullScreenChangedId = Main.layoutManager.connect('primary-fullscreen-changed', function (o, state) {
+        if (state) {
+            moveToTray();
+        } else {
+            moveToTop();
+        }
+    });
 }
 
 function disable() {
+    moveToTray();
+
+    if (fullScreenChangedId != 0) {
+        Main.layoutManager.disconnect(fullScreenChangedId);
+        fullScreenChangedId = 0;
+    }
+
     global.screen.override_workspace_layout(Meta.ScreenCorner.TOPLEFT, false, -1, 1);
 
-    MessageTray.MessageTray.prototype._showTray = origShowTray;
-    MessageTray.MessageTray.prototype._trayDwellTimeout = origTrayDwellTimeout;
     MessageTray.MessageTray.prototype._updateShowingNotification =
         origUpdateShowingNotification;
     MessageTray.MessageTray.prototype._onNotificationExpanded =

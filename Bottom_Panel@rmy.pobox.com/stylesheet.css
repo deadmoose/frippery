@@ -22,6 +22,10 @@
     spacing: 6px;
 }
 
+.notification-tray {
+    spacing: 0px;
+}
+
 .workspace-switcher {
     spacing: 6px;
 }
