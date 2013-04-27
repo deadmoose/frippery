@@ -959,6 +959,10 @@ const BottomPanel = new Lang.Class({
         let windowList = new WindowList();
         this.actor.add(windowList.actor, { expand: true });
 
+        let parent = notificationTray.get_parent();
+        if (parent) {
+            parent.remove_actor(notificationTray);
+        }
         this.actor.add(notificationTray);
 
         this.workspaceSwitcher = new WorkspaceSwitcher();
