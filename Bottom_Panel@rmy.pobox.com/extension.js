@@ -1,4 +1,4 @@
-// Copyright (C) 2011-2012 R M Yorston
+// Copyright (C) 2011-2013 R M Yorston
 // Licence: GPLv2+
 
 const Clutter = imports.gi.Clutter;
@@ -310,6 +310,7 @@ const WindowListItem = new Lang.Class({
         this.actor = new St.Bin({ reactive: true,
                                   track_hover: true,
                                   can_focus: true });
+        this.actor._delegate = this;
 
         let title = metaWindow.title;
 
@@ -337,23 +338,47 @@ const WindowListItem = new Lang.Class({
 
         this.rightClickMenu = new WindowListItemMenu(this.actor, app, metaWindow);
 
-        this._notifyTitleId = metaWindow.connect('notify::title', Lang.bind(this, this._onTitleChanged));
+        this._notifyTitleId = metaWindow.connect('notify::title',
+                                    Lang.bind(this, this._onTitleChanged));
+        this._notifyMinimizedId = metaWindow.connect('notify::minimized',
+                                    Lang.bind(this, this._onMinimizedChanged));
+        this._notifyFocusId =
+            global.display.connect('notify::focus-window',
+                                    Lang.bind(this, this._onFocus));
 
         this.actor.connect('destroy', Lang.bind(this, this._onDestroy));
-        this.actor.connect('button-press-event', Lang.bind(this, this._onButtonPress));
+        this.actor.connect('button-press-event',
+                                    Lang.bind(this, this._onButtonPress));
+        this.actor.connect('allocation-changed',
+                                    Lang.bind(this, this._updateIconGeometry));
+
+        this._onFocus();
     },
 
-    _onTitleChanged: function(w) {
-        let title = w.title;
+    _onTitleChanged: function() {
+        let title = this.metaWindow.title;
         this.tooltip.set_text(title);
-        if ( !w.showing_on_its_workspace() ) {
+        if ( this.metaWindow.minimized ) {
             title = '[' + title + ']';
         }
         this.label.set_text(title);
     },
 
+    _onMinimizedChanged: function() {
+        if ( this.metaWindow.minimized ) {
+            this.icon.opacity = 127;
+            this.label.text = '[' + this.metaWindow.title + ']';
+        }
+        else {
+            this.icon.opacity = 255;
+            this.label.text = this.metaWindow.title;
+        }
+    },
+
     _onDestroy: function() {
         this.metaWindow.disconnect(this._notifyTitleId);
+        this.metaWindow.disconnect(this._notifyMinimizedId);
+        global.display.disconnect(this._notifyFocusId);
         this.tooltip.destroy();
         this.rightClickMenu.destroy();
     },
@@ -377,23 +402,29 @@ const WindowListItem = new Lang.Class({
         }
     },
 
-    doMinimize: function() {
-        this.label.text = '[' + this.metaWindow.title + ']';
-        this.icon.opacity = 127;
-    },
-
-    doMap: function() {
-        this.label.text = this.metaWindow.title;
-        this.icon.opacity = 255;
-    },
-
-    doFocus: function() {
+    _onFocus: function() {
         if ( this.metaWindow.has_focus() ) {
             this._itemBox.add_style_pseudo_class('focused');
         }
         else {
             this._itemBox.remove_style_pseudo_class('focused');
         }
+
+        if ( this.metaWindow.minimized ) {
+            this._itemBox.add_style_pseudo_class('minimized');
+        }
+        else {
+            this._itemBox.remove_style_pseudo_class('minimized');
+        }
+    },
+
+    _updateIconGeometry: function() {
+        let rect = new Meta.Rectangle();
+
+        [rect.x, rect.y] = this.actor.get_transformed_position();
+        [rect.width, rect.height] = this.actor.get_transformed_size();
+
+        this.metaWindow.set_icon_geometry(rect);
     }
 });
 
@@ -409,29 +440,20 @@ const WindowList = new Lang.Class({
         this.actor._delegate = this;
         this._windows = [];
 
-        let tracker = Shell.WindowTracker.get_default();
-        tracker.connect('notify::focus-app', Lang.bind(this, this._onFocus));
-
-        global.window_manager.connect('switch-workspace',
+        this._onSwitchWorkspaceId = global.window_manager.connect(
+                                        'switch-workspace',
                                         Lang.bind(this, this._refreshItems));
-        global.window_manager.connect('minimize',
-                                        Lang.bind(this, this._onMinimize));
-        global.window_manager.connect('map', Lang.bind(this, this._onMap));
 
         this._workspaces = [];
         this._changeWorkspaces();
 
-        global.screen.connect('notify::n-workspaces',
+        this._onNWorkspacesId = global.screen.connect('notify::n-workspaces',
                                 Lang.bind(this, this._changeWorkspaces));
 
         this._menuManager = new PopupMenu.PopupMenuManager(this);
         this._refreshItems();
-    },
 
-    _onFocus: function() {
-        for ( let i = 0; i < this._windows.length; ++i ) {
-            this._windows[i].doFocus();
-        }
+        this.actor.connect('destroy', Lang.bind(this, this._onDestroy));
     },
 
     _onHover: function(item) {
@@ -473,26 +495,6 @@ const WindowList = new Lang.Class({
         // Create list items for each window
         for ( let i = 0; i < windows.length; ++i ) {
             this._addListItem(windows[i]);
-        }
-
-        this._onFocus();
-    },
-
-    _onMinimize: function(shellwm, actor) {
-        for ( let i=0; i<this._windows.length; ++i ) {
-            if ( this._windows[i].metaWindow == actor.get_meta_window() ) {
-                this._windows[i].doMinimize();
-                return;
-            }
-        }
-    },
-
-    _onMap: function(shellwm, actor) {
-        for ( let i=0; i<this._windows.length; ++i ) {
-            if ( this._windows[i].metaWindow == actor.get_meta_window() ) {
-                this._windows[i].doMap();
-                return;
-            }
         }
     },
 
@@ -541,6 +543,17 @@ const WindowList = new Lang.Class({
             ws._windowRemovedId = ws.connect('window-removed',
                                     Lang.bind(this, this._windowRemoved));
         }
+    },
+
+    _onDestroy: function() {
+        for ( let i=0; i<this._workspaces.length; ++i ) {
+            let ws = this._workspaces[i];
+            ws.disconnect(ws._windowAddedId);
+            ws.disconnect(ws._windowRemovedId);
+        }
+
+        global.window_manager.disconnect(this._onSwitchWorkspaceId);
+        global.screen.disconnect(this._onNWorkspacesId);
     }
 });
 
@@ -624,7 +637,7 @@ const WorkspaceDialog = new Lang.Class({
         this.contentLayout.add(table, { y_align: St.Align.START });
 
         let label = new St.Label(
-                        { style_class: 'applications-menu-dialog-label',
+                        { style_class: 'workspace-dialog-label',
                           text: _f('Number of workspaces') });
         table.add(label, { row: 0, col: 0 });
 
@@ -657,7 +670,7 @@ const WorkspaceDialog = new Lang.Class({
                                         this._updateValues();
                                         this.close();}),
                          label:  _("OK"),
-                         key:    Clutter.Return }];
+                         default: true }];
 
         this.setButtons(buttons);
     },
@@ -774,13 +787,15 @@ const WorkspaceSwitcher = new Lang.Class({
                                         reactive: true });
         this.actor.connect('button-release-event', this._showDialog);
         this.actor.connect('scroll-event', this._onScroll);
+        this.actor.connect('destroy', Lang.bind(this, this._onDestroy));
         this.actor._delegate = this;
         this.button = [];
         this._createButtons();
 
-        global.screen.connect('notify::n-workspaces',
+        this._onNWorkspacesId = global.screen.connect('notify::n-workspaces',
                                 Lang.bind(this, this._createButtons));
-        global.window_manager.connect('switch-workspace',
+        this._onSwitchWorkspaceId = global.window_manager.connect(
+                                'switch-workspace',
                                 Lang.bind(this, this._updateButtons));
     },
 
@@ -833,12 +848,9 @@ const WorkspaceSwitcher = new Lang.Class({
     },
 
     _showDialog: function(actor, event) {
-        let button = event.get_button();
-        if ( button == 3 ) {
-            if ( this._workspaceDialog == null ) {
-                this._workspaceDialog = new WorkspaceDialog();
-            }
-            this._workspaceDialog.open();
+        if ( event.get_button() == 3 ) {
+            let _workspaceDialog = new WorkspaceDialog();
+            _workspaceDialog.open();
             return true;
         }
         return false;
@@ -941,6 +953,11 @@ const WorkspaceSwitcher = new Lang.Class({
             cr.setLineWidth(2.0);
             cr.stroke();
         }
+    },
+
+    _onDestroy: function() {
+        global.screen.disconnect(this._onNWorkspacesId);
+        global.window_manager.disconnect(this._onSwitchWorkspaceId);
     }
 });
 
@@ -962,6 +979,7 @@ const MessageButton = new Lang.Class({
             Main.messageTray.toggleState();
         }));
 
+        this.actor.connect('destroy', Lang.bind(this, this._onDestroy));
         this.actorAddedId = Main.messageTray._summary.connect('actor-added',
             Lang.bind(this, function() {
                 this.messageLabel.set_text('!');
@@ -973,6 +991,11 @@ const MessageButton = new Lang.Class({
                     this.messageLabel.set_text(' ');
                 }
         }));
+    },
+
+    _onDestroy: function() {
+        Main.messageTray._summary.disconnect(this.actorAddedId);
+        Main.messageTray._summary.disconnect(this.actorRemovedId);
     }
 });
 
@@ -998,6 +1021,7 @@ const BottomPanel = new Lang.Class({
                                                    trackFullscreen: true });
 
         this.actor.connect('style-changed', Lang.bind(this, this.relayout));
+        this.actor.connect('destroy', Lang.bind(this, this._onDestroy));
         this._monitorsChangedId = global.screen.connect('monitors-changed',
                 Lang.bind(this, this.relayout));
         this._sessionUpdatedId = Main.sessionMode.connect('updated',
@@ -1014,6 +1038,11 @@ const BottomPanel = new Lang.Class({
 
     _sessionUpdated: function() {
         this.actor.visible = Main.sessionMode.hasWorkspaces;
+    },
+
+    _onDestroy: function() {
+        global.screen.disconnect(this._monitorsChangedId);
+        Main.sessionMode.disconnect(this._sessionUpdatedId);
     }
 });
 
@@ -1126,11 +1155,9 @@ const FripperySwitcherPopup = new Lang.Class({
 });
 
 let myShowTray, origShowTray;
-let myTrayDwellTimeout, origTrayDwellTimeout;
 let myUpdateShowingNotification, origUpdateShowingNotification;
 let myOnNotificationExpanded, origOnNotificationExpanded;
 let myShowWorkspaceSwitcher, origShowWorkspaceSwitcher;
-let pre_363 = true;
 
 function init(extensionMeta) {
     let localePath = extensionMeta.path + '/locale';
@@ -1151,15 +1178,13 @@ function init(extensionMeta) {
 
     origShowTray = MessageTray.MessageTray.prototype._showTray;
     myShowTray = function() {
-        let modal = !this._overviewVisible;
-
         if (!this._grabHelper.grab({ actor: this.actor,
-                                     modal: modal,
                                      onUngrab: Lang.bind(this, this._escapeTray) })) {
             this._traySummoned = false;
             return false;
         }
 
+        this.emit('showing');
         let h = bottomPanel.actor.get_theme_node().get_height();
         this._tween(this.actor, '_trayState', MessageTray.State.SHOWN,
                     { y: - this.actor.height - h,
@@ -1167,41 +1192,30 @@ function init(extensionMeta) {
                       transition: 'easeOutQuad'
                     });
 
-        if (!this._overviewVisible)
-            this._lightbox.show();
+        for (let i = 0; i < this._lightboxes.length; i++)
+            this._lightboxes[i].show(MessageTray.ANIMATION_TIME);
 
         return true;
-    };
-
-    origTrayDwellTimeout = MessageTray.MessageTray.prototype._trayDwellTimeout;
-    myTrayDwellTimeout = function() {
-        this._trayDwellTimeoutId = 0;
-
-        return false;
     };
 
     origUpdateShowingNotification =
         MessageTray.MessageTray.prototype._updateShowingNotification;
     myUpdateShowingNotification = function() {
         this._notification.acknowledged = true;
-
-        if (pre_363)
-            Tweener.removeTweens(this._notificationWidget);
+        this._notification.playSound();
 
         if (this._notification.urgency == MessageTray.Urgency.CRITICAL ||
-                (pre_363 && this._notification.expanded))
+            this._notification.source.policy.forceExpanded)
             this._expandNotification(true);
 
+        let h = bottomPanel.actor.get_theme_node().get_height();
         let tweenParams = { opacity: 255,
+                            y: -this._notificationWidget.height - h,
                             time: MessageTray.ANIMATION_TIME,
                             transition: 'easeOutQuad',
                             onComplete: this._showNotificationCompleted,
                             onCompleteScope: this
                           };
-        if (!pre_363 || !this._notification.expanded) {
-            let h = bottomPanel.actor.get_theme_node().get_height();
-            tweenParams.y = -this._notificationWidget.height - h;
-        }
 
         this._tween(this._notificationWidget, '_notificationState', MessageTray.State.SHOWN, tweenParams);
     };
@@ -1211,9 +1225,7 @@ function init(extensionMeta) {
     myOnNotificationExpanded = function() {
         let h = bottomPanel.actor.get_theme_node().get_height();
         let expandedY = - this._notificationWidget.height - h;
-        // Using the close button causes a segfault when the tray is next
-        // invoked.  So don't display the close button.
-        //this._closeButton.show();
+        this._closeButton.show();
 
         // Don't animate the notification to its new position if it has shrunk:
         // there will be a very visible "gap" that breaks the illusion.
@@ -1294,19 +1306,17 @@ function init(extensionMeta) {
 let bottomPanel = null;
 
 function enable() {
+    if ( Main.sessionMode.currentMode == 'classic' ) {
+        return;
+    }
+
     MessageTray.MessageTray.prototype._showTray = myShowTray;
-    MessageTray.MessageTray.prototype._trayDwellTimeout = myTrayDwellTimeout;
     MessageTray.MessageTray.prototype._updateShowingNotification =
         myUpdateShowingNotification;
     MessageTray.MessageTray.prototype._onNotificationExpanded =
         myOnNotificationExpanded;
     WindowManager.WindowManager.prototype._showWorkspaceSwitcher =
         myShowWorkspaceSwitcher;
-
-    // we know this is 3.6, but what's the point version?
-    let version = Config.PACKAGE_VERSION.split('.');
-    if (version[2] >= 3)
-        pre_363 = false;
 
     Main.wm._reset();
 
@@ -1315,10 +1325,13 @@ function enable() {
 }
 
 function disable() {
+    if ( Main.sessionMode.currentMode == 'classic' ) {
+        return;
+    }
+
     global.screen.override_workspace_layout(Meta.ScreenCorner.TOPLEFT, false, -1, 1);
 
     MessageTray.MessageTray.prototype._showTray = origShowTray;
-    MessageTray.MessageTray.prototype._trayDwellTimeout = origTrayDwellTimeout;
     MessageTray.MessageTray.prototype._updateShowingNotification =
         origUpdateShowingNotification;
     MessageTray.MessageTray.prototype._onNotificationExpanded =
@@ -1328,22 +1341,6 @@ function disable() {
 
     Main.wm._reset();
 
-    if ( bottomPanel ) {
-        let button = bottomPanel.messageButton;
-
-        if ( button && button.actorAddedId ) {
-            Main.messageTray._summary.disconnect(button.actorAddedId);
-        }
-        if ( button && button.actorRemovedId ) {
-            Main.messageTray._summary.disconnect(button.actorRemovedId);
-        }
-        if ( this._monitorsChangedId ) {
-            global.screen.disconnect(this._monitorsChangedId);
-        }
-        if ( this._sessionUpdatedId ) {
-            Main.sessionMode.disconnect(this._sessionUpdatedId);
-        }
-        Main.layoutManager.removeChrome(bottomPanel.actor);
-        bottomPanel = null;
-    }
+    bottomPanel.actor.destroy();
+    bottomPanel = null;
 }

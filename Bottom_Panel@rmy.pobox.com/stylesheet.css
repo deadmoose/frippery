@@ -71,6 +71,10 @@
     background: #282828;
 }
 
+.window-list-item-box:minimized {
+    color: #666;
+}
+
 .window-list-item-label {
     font-weight: bold;
     width: 15em;
@@ -99,6 +103,12 @@
 
 .dynamic-workspaces-switch:active {
     background-color: #4c4c4c;
+}
+
+.workspace-dialog-label {
+    font-size: 11pt;
+    font-weight: bold;
+    color: white;
 }
 
 .workspace-dialog-entry {
